@@ -1,5 +1,5 @@
 // TrashCHAT
-// VERSION: V3.00
+// VERSION: V3.02
 // TiCubius <trashmates@protonmail.com>
 
 // MODULES
@@ -27,6 +27,7 @@ twitch.connect()
 // TWITCH EVENTS
 twitch.on("message", Event.onMessage)
 twitch.on("hosted", Event.onHosted)
+twitch.on('cheer', Event.onCheered)
 
 twitch.on("resub", Event.onResub)
 twitch.on("subgift", Event.onSubgift)
@@ -46,7 +47,6 @@ setInterval(() => {
 	API.fetchFollowersCount(settings.api.informations.channelid).then((count) => {UI.setFollowersCount(count)})
 
 	API.fetchChatters(settings.api.informations.channel).then((chatters) => {UI.setChattersList(chatters)})
-
 
 	API.fetchLatestFollowers().then((followers) => {
 		console.log(followers)

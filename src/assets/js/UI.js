@@ -57,8 +57,9 @@ module.exports = class UI {
 	 * 
 	 * @param {string} username 
 	 * @param {string} type 
+	 * @param {string} message
 	 */
-	newAlert(username, type) {
+	newAlert(username, type, message) {
 
 		let date = Date().toString().split(" ")[4]
 
@@ -74,11 +75,13 @@ module.exports = class UI {
 		if (type == "Subscribed")   {HTMLcontent += '<div class="icon"><i class="fas fa-star"></i></div>'}
 		if (type == "Followed")	   	{HTMLcontent += '<div class="icon"><i class="fas fa-heart"></i></div>'}
 		if (type == "Hosted")  		{HTMLcontent += '<div class="icon"><i class="fas fa-play"></i></div>'}
+		if (type == "Cheered")		{HTMLcontent += '<div class="icon"><i class="fas fa-dollar-signy"></i></div>'}
 
 		// 2. CONTENT
 		if (type == "Subscribed")   {HTMLcontent += '<p><span class="username">' + username + '</span> is now <span class="type">subscribed</span> to the channel!</p>'}
 		if (type == "Followed")   	{HTMLcontent += '<p><span class="username">' + username + '</span> is now <span class="type">following</span> the channel!</p>'}
 		if (type == "Hosted")  		{HTMLcontent += '<p><span class="username">' + username + '</span> is now <span class="type">hosting</span> the channel!</p>'}
+		if (type == "Cheered")		{HTMLcontent += '<p><span class="username">' + username + '</span> <span class="type">cheered</span> [' + message + ']</p>'}
 		
 		// ALERT DISPLAY
 		alert.innerHTML = HTMLcontent

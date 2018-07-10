@@ -1,5 +1,5 @@
 // TrashCHAT - API
-// VERSION: 3.00
+// VERSION: 3.02
 // AUTHOR: TiCubius <trashmates@protonmail.com>
 
 module.exports = class API {
@@ -30,7 +30,7 @@ module.exports = class API {
 
         return new Promise((resolve, reject) => {
 
-            request(this.apiUrl + "viewer/" + userid, {headers: {"token": this.apiKey}}, (errors, response, body) => {
+            request(this.apiUrl + "viewers/" + userid, {headers: {"token": this.apiKey}}, (errors, response, body) => {
                 if (errors || response.statusCode != 200 || JSON.parse(body).hasOwnProperty("errors")) {
                     reject({"errors": "API: fetchViewer failed"})
                 } else {

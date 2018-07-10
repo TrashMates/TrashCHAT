@@ -1,5 +1,5 @@
 // TrashCHAT - SASS
-// VERSION: 3.00
+// VERSION: 3.02
 // AUTHOR: TiCubius
 
 @import "_reset"
@@ -10,6 +10,7 @@ $SUBSCRIBER: #6441A4
 $TRASHMATES: #b63636
 $FOLLOWER:   #4158A4
 $HOST:       #41A473
+$CHEERED:    #9ba441
 
 // BASE ELEMENTS
 ::-webkit-scrollbar
@@ -120,6 +121,12 @@ h1, h2, h3, h4, h5, h6
 
 			.icon
 				background: darken($SUBSCRIBER, 5)
+
+		&.Cheered
+			background: $CHEERED
+
+			.icon
+				background: darken($CHEERED, 5)
 
 
 		&.Followed

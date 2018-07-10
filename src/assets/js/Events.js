@@ -1,5 +1,5 @@
 // TrashCHAT Events
-// VERSION: 3.00
+// VERSION: 3.02
 // AUTHOR: TiCubius <trashmates@protonmail.com>
 
 module.exports = class Events {
@@ -118,6 +118,16 @@ module.exports = class Events {
 		UI.newAlert(follower.display_name, "Followed")
 
 	}
+
+
+    onCheered(channel, userstate, message) {
+
+		let username = userstate["display-name"] || userstate["username"]
+		message = userstate['bits'] += " " + message
+		
+		UI.newAlert(username, "Cheered", message)
+
+    }
 
 	/**
 	 * Triggered when the #submit button is pressed 
