@@ -1,0 +1,94 @@
+// TrashCHAT
+// VERSION: V3.10
+// AUTHOR: TiCubius
+
+
+@import "reset"
+
+
+::placeholder
+    color: #ecf0f1
+    font-weight: normal
+
+// BASE ELEMENTS
+::-webkit-scrollbar
+	width: 2px
+	height: 2px
+
+::-webkit-scrollbar-thumb
+	background-color: ecf0f1
+
+*
+    box-sizing: border-box
+    transition: .250s
+
+body
+    background: #2c3e50
+
+    color: #ecf0f1
+    font-weight: normal
+    font-family: "Source Sans Pro", "Arial"
+
+    scroll-behavior: smooth
+
+
+svg path, svg rect
+    fill: #FF6700
+
+
+a
+    color: #2980B9
+    text-decoration: none
+
+input, button, select
+    border: none
+    outline: none
+
+    padding: 20px 50px
+
+    color: #ecf0f1
+    background: transparent
+
+option
+    text-align: center
+    background: #2c3e50
+    border: none
+
+button
+    border: 1px solid #ecf0f1
+
+    text-transform: uppercase
+
+    &:hover
+        border: 1px solid #7f8c8d
+
+div.separator
+    margin: 5px 0
+    width: 100%
+    height: 1px
+    background: #ecf0f1
+
+div.title
+    display: block
+    margin: 50px 0
+
+    h2
+        text-align: center
+        font-size: 48px
+
+.hidden
+    display: none !important
+
+.visible
+    display: block !important
+
+@import "modules/default"
+@import "modules/loader"
+@import "modules/modal"
+@import "modules/trashchat"
+
+@import "pages/accounts"
+@import "pages/chat"
+@import "pages/index"
+@import "pages/irc"
+@import "pages/login"

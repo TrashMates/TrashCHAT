@@ -1,0 +1,26 @@
+{
+	"name": "TrashCHAT",
+	"version": "3.1.0",
+	"main": "electron.js",
+	"repository": "https://github.com/TrashMates/TrashCHAT",
+	"author": "TiCubius <trashmates@protonmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"start": "electron electron.js",
+		"build": "electron-packager . --overwrite --asar=true --platform=win32 --prune=yes --arch=ia32 --icon=src/assets/images/TrashMates.ico --out=builds",
+		"watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/webpack-mix/setup/webpack.config.js",
+		"production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/webpack-mix/setup/webpack.config.js"
+	},
+	"devDependencies": {
+		"electron": "^1.8.8",
+		"laravel-mix-pug": "^0.2.1",
+		"pug": "^2.0.3",
+		"webpack-mix": "^2.0.2"
+	},
+	"dependencies": {
+		"async": "^2.6.1",
+		"axios": "^0.18.0",
+		"fs-path": "0.0.24",
+		"twitch-js": "^1.2.14"
+	}
+}

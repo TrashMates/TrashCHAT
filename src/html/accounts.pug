@@ -1,0 +1,29 @@
+doctype html
+html
+	head
+		title TrashCHAT - Accounts
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700')
+		link(rel='stylesheet', href='assets/css/app.css')
+	body
+		#accounts.js-container
+			include includes/logo
+
+			#list
+			.actions
+				a(href='login.html')
+					button.btn-primary Add an Account
+				a(href='irc.html')
+					button.btn-secondary Access chat
+
+		#modals
+			#modal-account-delete.modal.hidden
+				.container
+					h2.title TrashCHAT - Delete Account
+					p#modal-account-delete-content.content This action will delete the Account %Account%
+					input#selectedAccount(type='hidden')
+				.actions
+					button#btnDimissAccountDelete.btn-secondary Abort !
+					button#btnDeleteAccount.btn-primary Delete %Account
+
+		script(src='assets/js/accounts.js')

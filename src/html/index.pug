@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		title TrashCHAT - Loading
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700')
+		link(rel='stylesheet', href='assets/css/app.css')
+	body
+		#index.js-container
+			include includes/logo
+			p#informations LOADING...
+
+		#modals
+			#modal-connection-error.modal.hidden
+				.container
+					h2.title TrashCHAT - No connection
+					p.content TrashCHAT requires an online Internet connection to work.
+					p.content Please try again
+				.actions
+					a(href='index.html')
+						button#btnDismissConnectionError.btn-primary Retry
+
+			#modal-account-invalid.modal.hidden
+				.container
+					h2.title TrashCHAT - Account Error
+					p.content An error has occurred while logging in one of your Accounts.
+					p.content Please delete the Account and try again
+				.actions
+					a(href='accounts.html')
+						button#btnDismissAccountInvalid.btn-primary Access the Accounts Manager
+
+		script(src='assets/js/index.js')

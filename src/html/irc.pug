@@ -1,0 +1,96 @@
+doctype html
+html
+	head
+		title TrashCHAT
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700')
+		link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.1.0/css/all.css')
+		link(rel='stylesheet', href='assets/css/app.css')
+	body
+		#irc.js-container
+			.sidebar
+				.actions
+					a(href='accounts.html')
+						i.fas.fa-user
+					a#btnAddChannel(href='#')
+						i.fas.fa-plus-circle
+				.chatters
+					include includes/loading
+
+					.staff.hidden
+						h2 Twitch Staff
+						ul#staff
+					.moderators.hidden
+						h2 Moderators
+						ul#moderators
+					.viewers.hidden
+						h2 Viewers
+						ul#viewers
+				.informations
+					.followers
+						i.fas.fa-heart
+						p#followersCount LOADING
+					.viewers
+						i.fas.fa-user
+						p#viewersCount LOADING
+
+			.main
+				#tabs.tabs
+				#chats.chats
+					#chat-ticubius-trashmates.chat
+				#inputs.inputs
+					img#addEmote.addEmote(src='https://static-cdn.jtvnw.net/emoticons/v1/48/3.0', height='40px')
+
+		#modals
+			#modal-channel-add.modal.hidden
+				.container
+					include includes/logo
+
+					select#username
+						option(hidden='') SELECT AN ACCOUNT
+					input#channel(type='text', placeholder='Channel')
+				.actions
+					button#btnDismissAddChannel.btn-secondary Abort
+					button#btnConnectToChannel.btn-primary Connect to Channel
+
+			#modal-data-invalid.modal.hidden
+				.container
+					h2.title TrashCHAT - An error occurred
+					p.content All the fields are required to continue
+				.actions
+					button#btnDismissDataInvalid.btn-primary Ok
+
+			#modal-account-invalid.modal.hidden
+				.container
+					h2.title TrashCHAT - Invalid Account
+					p.content The selected Account doesn't exist.
+				.actions
+					button#btnDismissAccountInvalid.btn-primary Ok
+
+			#modal-channel-exists.modal.hidden
+				.container
+					h2.title TrashCHAT - Already connected
+					p.content This Account is already connected to this channel
+				.actions
+					button#btnDismissChannelExists.btn-primary Ok
+
+			#modal-account-error.modal.hidden
+				.container
+					h2.title TrashCHAT - Can't Login
+					p.content
+						| We weren't able to login into the Account
+						b#account_username ...
+					p.content Please try again
+				.actions
+					a(href='accounts.html')
+						button.btn-secondary Go to the Accounts Manager
+					button#btnDismissAccountError.btn-primary Continue anyway
+
+			#modal-emote-add.modal.hidden
+				.container
+					h2.title Add an emote
+					#emotesList
+				.actions
+					button#btnDismissEmoteAdd.btn-primary Close
+					
+		script(src='assets/js/irc.js')

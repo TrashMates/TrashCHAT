@@ -1,0 +1,52 @@
+doctype html
+html
+	head
+		title TrashCHAT - Login
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700')
+		link(rel='stylesheet', href='assets/css/app.css')
+	body
+		#login.js-container
+			include includes/logo
+
+			.container
+				.inputs
+					input#username(type='text', placeholder='Username')
+					input#password(type='password', placeholder='OAuth Token')
+				.informations
+					p
+						| This is not your regular account password.
+						| You need to generate a special OAuth Token
+					a(href='https://passport.twitch.tv/sessions/new?client_id=1etjwkade0awy1vs763810fzz6yx3o&oauth_request=false&redirect_path=https%3A%2F%2Fid.twitch.tv%2Foauth2%2Fauthorize%3Fresponse_type%3Dtoken%26client_id%3Dq6batx0epp608isickayubi39itsckt%26redirect_uri%3Dhttps%3A%2F%2Ftwitchapps.com%2Ftmi%2F%26scope%3Dchat_login&redirect_uri=https%3A%2F%2Ftwitchapps.com%2Ftmi%2F&response_type=token&scope=chat_login&username=&force_verify=true', target='_blank') Click here to generate your token
+				.actions
+					button#btnLogin.btn-primary Login to Account
+					a(href='accounts.html')
+						button.btn-secondary Access Accounts
+
+		#modals
+			#modal-account-exists.modal.hidden
+				.container
+					h2.title TrashCHAT - An error occurred
+					p.content This account is already registered in TrashCHAT.
+				.actions
+					button#btnDismissAccountExists.btn-primary Ok
+
+			#modal-account-invalid.modal.hidden
+				.container
+					h2.title TrashCHAT - An error occurred
+					p.content The username or password is invalid.
+					p.content Please try again
+				.actions
+					button#btnDismissAccountInvalid.btn-primary Ok
+
+			#modal-account-connected.modal.hidden
+				.container
+					h2.title TrashCHAT - Successfully logged in
+					p.content We were able to successfully log into your Account.
+					p.content Would you like to add another Account or access the Chat ?
+				.actions
+					button#btnAddNewAccount.btn-secondary Add an Account
+					a(href='irc.html')
+						button.btn-primary Access the Chat
+
+		script(src='assets/js/login.js')

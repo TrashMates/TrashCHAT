@@ -1,0 +1,6 @@
+dist/
+builds/
+node_modules/
+
+yarn.lock
+mix-manifest.json
