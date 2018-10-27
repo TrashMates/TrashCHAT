@@ -7,6 +7,7 @@
 // STEP 00 - Load modules and data
 // ****************************************************************************************************
 
+const autoComplete = require("./assets/js/librairies/auto-complete.min.js")
 const $AccountsManager = require(`./assets/js/class/AccountsManager.js`)
 const $UI = require(`./assets/js/class/UI.js`)
 

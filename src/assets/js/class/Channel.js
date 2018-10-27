@@ -22,6 +22,7 @@ module.exports = class Channel
         this.name = name
         this.oauth = oauth
         this.currentChatters = []
+        this.chatters = []
 
         this.fetchInformations()
     }
@@ -183,5 +184,34 @@ module.exports = class Channel
     isInChatterList(username)
     {
         return (this.currentChatters.indexOf(username) !== -1)
+    }
+
+    /**
+     * Sets all users present in this Channel's chat
+     * 
+     * @param {object} chatters 
+     */
+    setChatters(chatters)
+    {
+        this.chatters = []
+        
+        chatters.admins.forEach((chatter) => {
+            this.chatters.push(chatter)
+        })
+        chatters.global_mods.forEach((chatter) => {
+            this.chatters.push(chatter)
+        })
+        chatters.moderators.forEach((chatter) => {
+            this.chatters.push(chatter)
+        })
+        chatters.staff.forEach((chatter) => {
+            this.chatters.push(chatter)
+        })
+        chatters.viewers.forEach((chatter) => {
+            this.chatters.push(chatter)
+        })
+        chatters.vips.forEach((chatter) => {
+            this.chatters.push(chatter)
+        })
     }
 }

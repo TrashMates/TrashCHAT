@@ -4,6 +4,7 @@
 
 
 const axios = require(`axios`)
+let autoCompleteList = ["/help", "/w", "/me", "/disconnect", "/mods", "/color", "/commercial", "/mod", "/unmod", "/ban", "/unban", "/timeout", "/untimeout", "/slow", "/slowoff", "/r9kbeta", "/r9kbetaoff", "/emoteonly", "/emoteonlyoff", "/clear", "/subscribers", "/subscribersoff", "/followers", "/followersoff", "/host", "/unhost", "/marker"];
 
 module.exports = class UI
 {
@@ -142,6 +143,7 @@ module.exports = class UI
 
         let input = document.createElement(`input`)
         input.id = `input-${Account.username}-${Channel.name}`
+        input.name = `input-${Account.username}-${Channel.name}`
         input.className = `input`
         input.type = `text`
         input.placeholder = `Send a message to #${Channel.name} as ${Account.username}`
@@ -165,6 +167,41 @@ module.exports = class UI
                 input.value = ''
             }
 
+        })
+
+
+        // ****************************************************************************************************
+        // Setting-up autocomplete
+        // ****************************************************************************************************
+        
+        new autoComplete({
+            selector: `input[name="input-${Account.username}-${Channel.name}"]`,
+            minChars: 2,
+            offsetTop: -250,
+            source: function (term, suggest) {
+                let choices = autoCompleteList
+                let matches = []
+                term = term.toLowerCase()
+
+                // Chatters
+                if (term[0] === `@`) {
+                    for (let i = 0; i < Channel.chatters.length; i++) {
+                        if (Channel.chatters[i].toLowerCase().indexOf(term.substr(1)) !== -1) {
+                            matches.push(`@${Channel.chatters[i]}`)
+                        }
+
+                    }
+                }
+
+                // Others
+                for (let i = 0; i < choices.length; i++) {
+                    if (choices[i].toLowerCase().indexOf(term) !== -1) {
+                        matches.push(choices[i])
+                    }
+                }
+
+                suggest(matches);
+            }
         })
 
     }
@@ -375,7 +412,13 @@ module.exports = class UI
         document.querySelector(`#viewersCount`).innerHTML = count
     }
 
-    static setChatters(chatters)
+    /**
+     * Sets the chatters list in the sidebar
+     * 
+     * @param {Object} chatters 
+     * @param {Channel} channel
+     */
+    static setChatters(chatters, Channel)
     {
 
         let tempHTML = ``
@@ -383,8 +426,11 @@ module.exports = class UI
 
         let staff = document.querySelector(`#staff`)
         let moderators = document.querySelector(`#moderators`)
+        let vips = document.querySelector(`#vips`)
         let viewers = document.querySelector(`#viewers`)
         let loader = document.querySelector(`#loader`)
+
+        Channel.setChatters(chatters)
 
         // ****************************************************************************************************
         // STEP 01 - Display loader
@@ -402,9 +448,11 @@ module.exports = class UI
         chatters.staff.forEach((chatter) => {
             tempHTML += `<li>${chatter}</li>`
         })
+
         chatters.admins.forEach((chatter) => {
             tempHTML += `<li>${chatter}</li>`
         })
+
         chatters.global_mods.forEach((chatter) => {
             tempHTML += `<li>${chatter}</li>`
         })
@@ -418,7 +466,7 @@ module.exports = class UI
         tempHTML = ``
 
         moderators.innerHTML = ``
-        chatters.moderators.forEach((chatter) => {
+        chatters.moderators.forEach((chatter) => {            
             tempHTML += `<li>${chatter}</li>`
         })
 
@@ -432,6 +480,7 @@ module.exports = class UI
 
         viewers.innerHTML = ``
         chatters.viewers.forEach((chatter) => {
+
             if (counter < 1000) {
                 tempHTML += `<li>${chatter}</li>`
                 counter++
@@ -439,6 +488,15 @@ module.exports = class UI
         })
 
         viewers.innerHTML = tempHTML
+
+        tempHTML = ``
+
+        vips.innerHTML = ``
+        chatters.vips.forEach((chatter) => {
+            tempHTML += `<li>${chatter}</li>`
+        })
+
+        vips.innerHTML = tempHTML
 
         // ****************************************************************************************************
         // STEP 05 - Hiding / Showing lists
@@ -452,6 +510,11 @@ module.exports = class UI
         document.querySelector(`.moderators`).className = `moderators`
         if (moderators.innerHTML === ``) {
             document.querySelector(`.moderators`).className += ` hidden`
+        }
+
+        document.querySelector(`.vips`).className = `vips`
+        if (vips.innerHTML === ``) {
+            document.querySelector(`.vips`).className += ` hidden`
         }
 
         document.querySelector(`.viewers`).className = `viewers`
@@ -506,7 +569,7 @@ module.exports = class UI
 
         Channel.fetchChatters().then((data) => {
 
-            this.setChatters(data)
+            this.setChatters(data, Channel)
 
         }).catch(console.error)
     }
@@ -529,6 +592,10 @@ module.exports = class UI
 
                 container.appendChild(e)
 
+                // Add to autocomplete
+                autoCompleteList.push(data.data[emote].code)
+
+                // Click on an emote to add it
                 e.addEventListener(`click`, (e) => {
                     document.querySelector(`#inputs`).childNodes.forEach((input) => {
                         if (input.className.includes(`active`)) {
