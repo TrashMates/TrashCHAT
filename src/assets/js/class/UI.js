@@ -155,22 +155,6 @@ module.exports = class UI
         container.appendChild(input)
 
         // ****************************************************************************************************
-        // Adding Events
-        // ****************************************************************************************************
-
-        input.addEventListener('keyup', (e) => {
-
-            if ((e.keyCode === 13) && (input.value !== '')) {
-                e.preventDefault()
-
-                Account.sendMessage(Channel, input.value)
-                input.value = ''
-            }
-
-        })
-
-
-        // ****************************************************************************************************
         // Setting-up autocomplete
         // ****************************************************************************************************
         
@@ -202,6 +186,28 @@ module.exports = class UI
 
                 suggest(matches);
             }
+        })
+
+
+        // ****************************************************************************************************
+        // Adding Events
+        // ****************************************************************************************************
+
+        input.addEventListener('keyup', (e) => {
+
+            // Enter
+            if ((e.keyCode === 13) && (input.value !== '')) {
+                e.preventDefault()
+
+                Account.sendMessage(Channel, input.value)
+                input.value = ''
+            }
+
+            // Tab
+            if (e.keyCode === 9) {
+                e.preventDefault()
+            }
+
         })
 
     }
@@ -387,6 +393,64 @@ module.exports = class UI
             }
 
         }
+    }
+
+      /**
+     * Visually adds a System Message for this Account and Channel
+     *
+     * @static
+     * @param {Account} Account
+     * @param {Channel} Channel
+     * @param {string} content
+     */
+    static addSystemMessage(Account, Channel, content)
+    {
+
+        let container = document.querySelector(`#chat-${Account.username}-${Channel.name}`)
+
+        // ****************************************************************************************************
+        // Generate HTMLElement
+        // ****************************************************************************************************
+
+        let message = document.createElement(`div`)
+        message.className = `message system`
+        message.innerHTML =
+            `
+            <div class="header">
+                <span class="username">SYSTEM</span>
+                <span class="date">${Date().toString().split(" ")[4]}</span>
+            </div>
+            <div class="content">
+                <p>${content}</p>
+            </div>
+        `
+
+        // ****************************************************************************************************
+        // Append HTMLElement
+        // ****************************************************************************************************
+
+        container.appendChild(message)
+
+        // ****************************************************************************************************
+        // Manage old messages
+        // ****************************************************************************************************
+
+        if (container.childNodes.length >= 500) {
+            container.childNodes[0].remove()
+        }
+
+        // ****************************************************************************************************
+        // Check auto scroll
+        // ****************************************************************************************************
+
+        if (container.className.includes('active')) {
+
+            if ((container.scrollTop + container.clientHeight + 250) >= (container.scrollHeight)) {
+                message.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+
+        }
+
     }
 
 

@@ -65,6 +65,13 @@ AccountsManager.accounts.forEach((Account) => {
 
         })
 
+        Account.twitch.on(`notice`, (channel, msgid, message) => {
+
+            let Channel = Account.findChannel(channel)
+            $UI.addSystemMessage(Account, Channel, message)
+
+        })
+
     }).catch((account) => {
 
         document.querySelector(`#account_username`).innerHTML = ` ${account}`
