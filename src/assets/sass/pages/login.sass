@@ -4,50 +4,59 @@
 
 
 #login
-  position: absolute
-  top: 50%
-  left: 50%
-  -webkit-transform: translate(-50%, -50%)
-  transform: translate(-50%, -50%)
-  #logo
-    margin: 0 auto 50px
-  div.container
-    margin: 0 auto
-    text-align: center
-    div
-      &.inputs
-        width: 300px
-        margin-bottom: 50px
-        input
-          width: 100%
-          padding: 25px 50px
-          text-align: center
-      &.informations
-        width: 300px
-        margin: 20px 0
-        p
-          margin-bottom: 20px
-      &.actions
-        display: -webkit-box
-        display: -ms-flexbox
-        display: flex
-        -webkit-box-orient: vertical
-        -webkit-box-direction: normal
-        -ms-flex-direction: column
-        flex-direction: column
-        margin-top: 50px
-        button
-          width: 100%
-          margin-bottom: 20px
-          padding: 10px 50px
+	position: absolute
+	top: 50%
+	left: 50%
+
+	transform: translate(-50%, -50%)
+
+	#logo
+		margin: 0 auto 50px
+
+	div.container
+		margin: 0 auto
+		
+		text-align: center
+		
+		div.inputs
+			width: 300px
+			
+			margin-bottom: 50px
+
+			input
+				width: 100%
+
+				padding: 25px 50px
+
+				text-align: center
+
+		div.informations
+			width: 300px
+
+			margin: 20px 0
+
+			p
+				margin-bottom: 20px
+
+		div.actions
+			display: flex
+			flex-direction: column
+
+			margin-top: 50px
+
+			button
+				width: 100%
+
+				margin-bottom: 20px
+				padding: 10px 50px
 
 // If the window height is less than 461px
 // Then the login screen is not fully displayed.
 // Above 461px, we want it to be vertically centered
 
 @media only screen and (min-height: 461px)
-    body.login
-        margin-top: 50vh
-        transform: translateY(-50%)
+	body.login
+		margin-top: 50vh
+		transform: translateY(-50%)
 
-        overflow: hidden
+		overflow: hidden

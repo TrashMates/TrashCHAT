@@ -4,176 +4,206 @@
 
 
 #irc
-  display: -webkit-box
-  display: -ms-flexbox
-  display: flex
-  overflow: hidden
-  -webkit-box-orient: horizontal
-  -webkit-box-direction: normal
-  -ms-flex-direction: row
-  flex-direction: row
-  div
-    &.sidebar
-      display: -webkit-box
-      display: -ms-flexbox
-      display: flex
-      -webkit-box-orient: vertical
-      -webkit-box-direction: normal
-      -ms-flex-direction: column
-      flex-direction: column
-      width: 300px
-      height: 100vh
-      background: #31465a
-      div
-        &.actions
-          font-size: 18px
-          height: 50px
-          text-align: center
-          background: #2c3e50
-          i
-            margin: 16px 30px
-        &.chatters
-          overflow: scroll
-          height: calc(100vh - 100px)
-          padding: 20px
-          div
-            &.loader
-              position: relative
-              top: 50%
-              left: 115px
-              width: 30px
-            &.staff, &.moderators, &.viewers
-              margin-bottom: 20px
-            &.staff h2, &.moderators h2, &.viewers h2
-              font-weight: 500
-              text-transform: uppercase
-            &.staff li, &.moderators li, &.viewers li
-              overflow: hidden
-        &.informations
-          line-height: 50px
-          display: -webkit-box
-          display: -ms-flexbox
-          display: flex
-          -webkit-box-orient: horizontal
-          -webkit-box-direction: normal
-          -ms-flex-direction: row
-          flex-direction: row
-          height: 50px
-          background: #2c3e50
-          -ms-flex-pack: distribute
-          justify-content: space-around
-          div
-            &.followers, &.viewers
-              display: -webkit-box
-              display: -ms-flexbox
-              display: flex
-              -webkit-box-orient: horizontal
-              -webkit-box-direction: normal
-              -ms-flex-direction: row
-              flex-direction: row
-            &.followers i, &.viewers i
-              font-size: 18px
-              margin: 16px 10px
-              color: #6441a4
-            &.followers p, &.viewers p
-              font-weight: 400
-    &.main
-      display: -webkit-box
-      display: -ms-flexbox
-      display: flex
-      -webkit-box-orient: vertical
-      -webkit-box-direction: normal
-      -ms-flex-direction: column
-      flex-direction: column
-      width: calc(100vw - 300px)
-      height: 100vh
-      background: #2c3e50
-      div
-        &.tabs
-          display: block
-          overflow-x: auto
-          overflow-y: hidden
-          width: 100%
-          height: 50px
-          white-space: nowrap
-          background: #31465a
-          div.tab
-            line-height: 48px
-            display: inline-block
-            height: 48px
-            padding: 0 20px
-            &.active
-              color: #ecf0f1 !important
-              background: #2980b9 !important
-            &:nth-child(2n)
-              background: #2d4b64
-        &.chats
-          width: 100%
-          height: calc(100vh - 100px)
-          div.chat
-            display: none
-            &.active
-              display: block
-              overflow: scroll
-              height: calc(100vh - 98px)
-            div.message div
-              &.header
-                line-height: 50px
-                display: -webkit-box
-                display: -ms-flexbox
-                display: flex
-                height: 50px
-                div.icon
-                  width: 50px
-                  text-align: center
-                  color: #2c3e50
-                  background: #6441a4
-                span
-                  &.username
-                    font-weight: 400
-                    margin-left: 20px
-                  &.date
-                    margin-right: 20px
-                    margin-left: auto
-              &.content
-                padding: 20px
-                background: #2f4255
-                img.emoticon
-                  vertical-align: middle
-        &.inputs
-          height: 50px
-          background: #31465a
-          input
-            display: none
-            width: 100%
-            height: 50px
-            padding: 0 20px
-            padding-right: 80px
-            border: none
-            &.active
-              display: block
-          img.addEmote
-            position: absolute
-            right: 20px
-            height: 40px
-            margin-top: 5px
+	display: flex
+	flex-direction: row
 
-#modal-channel-add div
-  &.container
-    width: 300px
-    margin: 0 auto
-    #username, #channel
-      text-align: center
-      text-align-last: center
-  &.actions button
-    padding: 10px 22px
+	overflow: hidden
+
+	div.sidebar
+		display: flex
+		flex-direction: column
+
+		width: 300px
+		height: 100vh
+
+		background: #31465a
+
+		div.actions
+			height: 50px
+
+			font-size: 18px
+			text-align: center
+
+			background: #2c3e50
+		 
+			i
+				margin: 16px 30px
+
+		div.chatters
+			overflow: scroll
+			
+			padding: 20px
+			height: calc(100vh - 100px)
+			
+			div.loader
+				position: relative
+				top: 50%
+				left: 115px
+				
+				width: 30px
+
+			div.staff, div.moderators, div.viewers
+				margin-bottom: 20px
+
+			div.staff h2, div.moderators h2, div.viewers h2
+				font-weight: 500
+				text-transform: uppercase
+
+			div.staff li, div.moderators li, div.viewers li
+				overflow: hidden
+
+		div.informations
+			display: flex
+			flex-direction: row
+
+			height: 50px
+			
+			justify-content: space-around
+			line-height: 50px
+			
+			background: #2c3e50
+
+			div.followers, div.viewers
+				display: flex
+				flex-direction: row
+
+				i
+					color: #6441a4
+					font-size: 18px
+
+					margin: 16px 10px
+
+				p
+					font-weight: 400
+	div.main
+		display: flex
+		flex-direction: column
+
+		height: 100vh
+		width: calc(100vw - 300px)
+
+		background: #2c3e50
+
+		div.tabs
+			display: block
+			
+			width: 100%
+			height: 50px
+
+			overflow-x: auto
+			overflow-y: hidden
+			white-space: nowrap
+
+			background: #31465a
+
+			div.tab
+				display: inline-block
+
+				height: 48px
+
+				padding: 0 20px
+				line-height: 48px
+
+				&.active
+					color: #ecf0f1 !important
+					background: #2980b9 !important
+
+				&:nth-child(2n)
+					background: #2d4b64
+
+		div.chats
+			height: calc(100vh - 100px)
+			width: 100%
+
+			div.chat
+				display: none
+				
+				&.active
+					display: block
+					
+					height: calc(100vh - 98px)
+
+					overflow: scroll
+
+			div.message
+				div.header
+					display: flex
+
+					height: 50px
+
+					line-height: 50px
+
+					&.first
+						background: #2c503f
+
+				div.icon
+					width: 50px
+
+					color: #2c3e50
+					text-align: center
+					background: #6441a4
+
+				span.username
+					font-weight: 400
+					margin-left: 20px
+
+				span.date
+					margin-right: 20px
+					margin-left: auto
+
+				div.content
+					padding: 20px
+					background: #2f4255
+
+					img.emoticon
+						vertical-align: middle
+
+		div.inputs
+			height: 50px
+			background: #31465a
+
+			input
+				display: none
+			
+				width: 100%
+				height: 50px
+			
+				padding: 0 20px
+				padding-right: 80px
+			
+				border: none
+
+				&.active
+					display: block
+
+			img.addEmote
+				position: absolute
+				right: 20px
+
+				height: 40px
+
+				margin-top: 5px
+
+#modal-channel-add
+	div.container
+		width: 300px
+		margin: 0 auto
+	
+		#username, #channel
+			text-align: center
+			text-align-last: center
+	div.actions button
+		padding: 10px 22px
 
 #modal-emote-add #emotesList
-  display: grid
-  overflow: scroll
-  height: 200px
-  grid-template-columns: repeat(10, 1fr)
-  grid-row-gap: 10px
-  grid-auto-flow: dense
-  img
-    width: 32px
+	display: grid
+	grid-template-columns: repeat(6, 1fr)
+	grid-row-gap: 10px
+	grid-auto-flow: dense
+
+	height: 200px
+
+	overflow: scroll
+	
+	img
+		width: 32px

@@ -299,6 +299,14 @@ module.exports = class UI
         if (user.mod)             {icon = `<div class="icon"><i class="fas fa-check"></i></div>`}
         else if (user.subscriber) {icon = `<div class="icon"><i class="fas fa-star"></i></div>`}
 
+        let firstMessage = ""
+        if (!Channel.isInChatterList(user['display-name'])) {
+            
+            firstMessage = "first"
+            Channel.addChatter(user["display-name"])
+
+        }
+        
         // ****************************************************************************************************
         // Generate HTMLElement
         // ****************************************************************************************************
@@ -307,7 +315,7 @@ module.exports = class UI
         message.className = `message`
         message.innerHTML =
         `
-            <div class="header">
+            <div class="header ${firstMessage}">
                 ${icon}
                 <span class="username">${user['display-name']}</span>
                 <span class="date">${Date().toString().split(" ")[4]}</span>

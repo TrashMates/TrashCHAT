@@ -21,6 +21,7 @@ module.exports = class Channel
 
         this.name = name
         this.oauth = oauth
+        this.currentChatters = []
 
         this.fetchInformations()
     }
@@ -159,4 +160,28 @@ module.exports = class Channel
 
     }
 
+    /**
+     * Adds the user into the chatterList
+     * 
+     * @param {string} username
+     */
+    addChatter(username)
+    {
+
+        if(!this.isInChatterList(username)) {
+            this.currentChatters.push(username)
+        }
+
+    }
+
+    /**
+     * Checks weather or not that user has already chatted in this channel
+     * 
+     * @param {string} username 
+     * @return {boolean}
+     */
+    isInChatterList(username)
+    {
+        return (this.currentChatters.indexOf(username) !== -1)
+    }
 }
