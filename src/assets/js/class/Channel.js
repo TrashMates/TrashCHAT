@@ -1,5 +1,5 @@
 // TrashCHAT - Channel
-// VERSION: V3.10
+// VERSION: V3.14
 // AUTHOR: TiCubius
 
 
@@ -23,6 +23,8 @@ module.exports = class Channel
         this.oauth = oauth
         this.currentChatters = []
         this.chatters = []
+
+        this.followers = []
 
         this.fetchInformations()
     }
@@ -63,7 +65,7 @@ module.exports = class Channel
 
         return new Promise((resolve, reject) => {
 
-            axios.get(`https://api.twitch.tv/helix/users/follows?to_id=${this.id}`, {
+            axios.get(`https://api.twitch.tv/helix/users/follows?to_id=${this.id}&first=100`, {
                 'headers': {
                     'Authorization': `Bearer ${this.oauth}`
                 }

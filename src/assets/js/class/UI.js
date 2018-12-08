@@ -1,13 +1,12 @@
 // TrashCHAT - UI
-// VERSION: V3.10
+// VERSION: V3.14
 // AUTHOR: TiCubius
 
 
 const axios = require(`axios`)
 let autoCompleteList = ["/help", "/w", "/me", "/disconnect", "/mods", "/color", "/commercial", "/mod", "/unmod", "/ban", "/unban", "/timeout", "/untimeout", "/slow", "/slowoff", "/r9kbeta", "/r9kbetaoff", "/emoteonly", "/emoteonlyoff", "/clear", "/subscribers", "/subscribersoff", "/followers", "/followersoff", "/host", "/unhost", "/marker"];
 
-module.exports = class UI
-{
+module.exports = class UI {
 
     /**
      * Displays the given Modal and blurs the background
@@ -15,8 +14,7 @@ module.exports = class UI
      * @static
      * @param {string} id
      */
-    static toggleModal(id)
-    {
+    static toggleModal(id) {
         let container = document.querySelector(`.js-container`)
         let modal = document.querySelector(`#${id}`)
 
@@ -50,8 +48,7 @@ module.exports = class UI
      * @param {Account} Account
      * @param {Channel} Channel
      */
-    static addTab(Account, Channel)
-    {
+    static addTab(Account, Channel) {
 
         let container = document.querySelector(`#tabs`)
 
@@ -81,6 +78,7 @@ module.exports = class UI
             // Middle Mouse Button
             if (e.which === 2) {
 
+                Account.leaveChannel(Channel)
                 Account.removeChannel(Channel.name)
                 AccountsManager.saveAccounts()
 
@@ -104,8 +102,7 @@ module.exports = class UI
      * @param {Account} Account
      * @param {Channel} Channel
      */
-    static addChat(Account, Channel)
-    {
+    static addChat(Account, Channel) {
 
         let container = document.querySelector(`#chats`)
 
@@ -132,8 +129,7 @@ module.exports = class UI
      * @param {Account} Account
      * @param {Channel} Channel
      */
-    static addInput(Account, Channel)
-    {
+    static addInput(Account, Channel) {
 
         let container = document.querySelector(`#inputs`)
 
@@ -157,7 +153,7 @@ module.exports = class UI
         // ****************************************************************************************************
         // Setting-up autocomplete
         // ****************************************************************************************************
-        
+
         new autoComplete({
             selector: `input[name="input-${Account.username}-${Channel.name}"]`,
             minChars: 2,
@@ -220,8 +216,7 @@ module.exports = class UI
      * @param {Account} Account
      * @param {Channel} Channel
      */
-    static setActive(Account, Channel)
-    {
+    static setActive(Account, Channel) {
 
         // ****************************************************************************************************
         // Reset status
@@ -258,7 +253,7 @@ module.exports = class UI
         // ****************************************************************************************************
 
         if (chat.childNodes.length >= 1) {
-            chat.lastChild.scrollIntoView({behavior: 'smooth', block: 'start'})
+            chat.lastChild.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
 
         // ****************************************************************************************************
@@ -288,8 +283,7 @@ module.exports = class UI
      * @param {Object} emotes
      * @returns {string}
      */
-    static formatMessage(text, emotes)
-    {
+    static formatMessage(text, emotes) {
         let splitText = text.split('')
 
         for (let i in emotes) {
@@ -303,7 +297,7 @@ module.exports = class UI
                     mote = [parseInt(mote[0]), parseInt(mote[1])]
 
                     let length = mote[1] - mote[0]
-                    let empty = Array.apply(null, new Array(length + 1)).map(function() {
+                    let empty = Array.apply(null, new Array(length + 1)).map(function () {
                         return ''
                     })
 
@@ -320,18 +314,17 @@ module.exports = class UI
         return splitText.join('')
     }
 
-      /**
-     * Visually adds a Message for this Account and Channel
-     *
-     * @static
-     * @param {Account} Account
-     * @param {Channel} Channel
-     * @param {Object} user
-     * @param {string} message
-     */
-    static addMessage(Account, Channel, user, content)
-    {
-
+    /**
+   * Visually adds a Message for this Account and Channel
+   *
+   * @static
+   * @param {Account} Account
+   * @param {Channel} Channel
+   * @param {Object} user
+   * @param {string} message
+   */
+    static addMessage(Account, Channel, user, content) {
+        console.log(user)
         let container = document.querySelector(`#chat-${Account.username}-${Channel.name}`)
 
         // ****************************************************************************************************
@@ -339,17 +332,19 @@ module.exports = class UI
         // ****************************************************************************************************
 
         let icon = ``
-        if (user.mod)             {icon = `<div class="icon"><i class="fas fa-check"></i></div>`}
-        else if (user.subscriber) {icon = `<div class="icon"><i class="fas fa-star"></i></div>`}
+        let badges = user[`badges-raw`]
+        if (user.mod) { icon = `<div class="icon"><i class="fas fa-check"></i></div>` }
+        else if (user.subscriber) { icon = `<div class="icon"><i class="fas fa-star"></i></div>` }
+        else if ((badges) && (badges.includes(`vip`))) { icon = `<div class="icon"><i class="fas fa-medal"></i></div>` }
 
         let firstMessage = ""
         if (!Channel.isInChatterList(user['display-name'])) {
-            
+
             firstMessage = "first"
             Channel.addChatter(user["display-name"])
 
         }
-        
+
         // ****************************************************************************************************
         // Generate HTMLElement
         // ****************************************************************************************************
@@ -357,7 +352,7 @@ module.exports = class UI
         let message = document.createElement(`div`)
         message.className = `message`
         message.innerHTML =
-        `
+            `
             <div class="header ${firstMessage}">
                 ${icon}
                 <span class="username">${user['display-name']}</span>
@@ -389,22 +384,23 @@ module.exports = class UI
         if (container.className.includes('active')) {
 
             if ((container.scrollTop + container.clientHeight + 250) >= (container.scrollHeight)) {
-                message.scrollIntoView({behavior: 'smooth', block: 'start'})
+                message.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
 
         }
     }
 
-      /**
-     * Visually adds a System Message for this Account and Channel
-     *
-     * @static
-     * @param {Account} Account
-     * @param {Channel} Channel
-     * @param {string} content
-     */
-    static addSystemMessage(Account, Channel, content)
-    {
+    /**
+   * Visually adds a System Message for this Account and Channel
+   *
+   * @static
+   * @param {Account} Account
+   * @param {Channel} Channel
+   * @param {string} type
+   * @param {string} username
+   * @param {string} content
+   */
+    static addSystemMessage(Account, Channel, type, username, content) {
 
         let container = document.querySelector(`#chat-${Account.username}-${Channel.name}`)
 
@@ -413,11 +409,11 @@ module.exports = class UI
         // ****************************************************************************************************
 
         let message = document.createElement(`div`)
-        message.className = `message system`
+        message.className = `message ${type}`
         message.innerHTML =
             `
             <div class="header">
-                <span class="username">SYSTEM</span>
+                <span class="username">${username}</span>
                 <span class="date">${Date().toString().split(" ")[4]}</span>
             </div>
             <div class="content">
@@ -460,8 +456,7 @@ module.exports = class UI
      * @static
      * @param {String} count
      */
-    static setFollowersCount(count)
-    {
+    static setFollowersCount(count) {
         document.querySelector(`#followersCount`).innerHTML = count
     }
 
@@ -471,8 +466,7 @@ module.exports = class UI
      * @static
      * @param {String} count
      */
-    static setViewersCount(count)
-    {
+    static setViewersCount(count) {
         document.querySelector(`#viewersCount`).innerHTML = count
     }
 
@@ -482,8 +476,7 @@ module.exports = class UI
      * @param {Object} chatters 
      * @param {Channel} channel
      */
-    static setChatters(chatters, Channel)
-    {
+    static setChatters(chatters, Channel) {
 
         let tempHTML = ``
         let counter = 0
@@ -530,7 +523,7 @@ module.exports = class UI
         tempHTML = ``
 
         moderators.innerHTML = ``
-        chatters.moderators.forEach((chatter) => {            
+        chatters.moderators.forEach((chatter) => {
             tempHTML += `<li>${chatter}</li>`
         })
 
@@ -601,8 +594,7 @@ module.exports = class UI
      * @param {Account} Account
      * @param {Channel} Channel
      */
-    static refreshUIInformations(Account, Channel)
-    {
+    static refreshUIInformations(Account, Channel) {
         // ****************************************************************************************************
         // STEP 01 - Update followers count
         // ****************************************************************************************************
@@ -611,6 +603,25 @@ module.exports = class UI
 
             let count = String(data.total).split(/(?=(?:...)*$)/).join(' ')
             this.setFollowersCount(count)
+
+            let alertFollowers = false
+            if (Channel.followers.length !== 0) {
+                alertFollowers = true
+            }
+
+            let followers = []
+            data.data.forEach((follower) => {
+
+                if (Channel.followers.indexOf(follower.from_id) === -1) {
+                    Channel.followers.push(follower.from_id)
+                    followers.push(follower.from_name)
+                }
+
+            })
+
+            if ((followers.length) >= 1 && (alertFollowers)) {
+                this.addSystemMessage(Account, Channel, `followed`, `FOLLOW`, `${followers.join(`, `)} ${(followers.length > 1) ? `are` : `is`} now following ${Channel.name} !`)
+            }
 
         }).catch(console.error)
 
@@ -644,8 +655,7 @@ module.exports = class UI
      *
      * @static
      */
-    static fetchEmotes()
-    {
+    static fetchEmotes() {
         axios.get(`https://twitchemotes.com/api_cache/v3/global.json`).then((data) => {
 
             let container = document.querySelector(`#emotesList`)

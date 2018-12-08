@@ -1,5 +1,5 @@
 // TrashCHAT - IRC
-// VERSION: V3.10
+// VERSION: V3.14
 // AUTHOR: TiCubius
 
 
@@ -45,7 +45,7 @@
 			div.staff, div.moderators, div.vips, div.viewers
 				margin-bottom: 20px
 
-			div.staff h2, div.moderators h2, div.vips, div.viewers h2
+			div.staff h2, div.moderators h2, div.vips h2, div.viewers h2
 				font-weight: 500
 				text-transform: uppercase
 
@@ -126,7 +126,7 @@
 					overflow: scroll
 
 			div.message
-				&.system
+				&.system, &.followed, &.cheer, &.subscription, &.hosted, &.raid, &.resub, &.subgift, &.subscription
 					div.header
 						background: #502c2c !important
 
@@ -138,7 +138,7 @@
 					line-height: 50px
 
 					&.first
-						background: #2c503f
+						background: #2f502c
 
 				div.icon
 					width: 50px

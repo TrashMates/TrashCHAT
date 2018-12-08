@@ -1,6 +1,6 @@
 {
 	"name": "TrashCHAT",
-	"version": "3.1.0",
+	"version": "3.1.4",
 	"main": "electron.js",
 	"repository": "https://github.com/TrashMates/TrashCHAT",
 	"author": "TiCubius <trashmates@protonmail.com>",
@@ -21,6 +21,6 @@
 		"async": "^2.6.1",
 		"axios": "^0.18.0",
 		"fs-path": "0.0.24",
-		"twitch-js": "^1.2.14"
+		"twitch-js": "^1.2.17"
 	}
 }

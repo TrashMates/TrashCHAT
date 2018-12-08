@@ -58,17 +58,65 @@ AccountsManager.accounts.forEach((Account) => {
 
         })
 
-        Account.twitch.on(`message`, (channel, user, message, self) => {
+        Account.twitch.on(`message`, (channel, userstate, message, self) => {
 
             let Channel = Account.findChannel(channel)
-            $UI.addMessage(Account, Channel, user, message)
+            $UI.addMessage(Account, Channel, userstate, message)
 
         })
 
         Account.twitch.on(`notice`, (channel, msgid, message) => {
 
             let Channel = Account.findChannel(channel)
-            $UI.addSystemMessage(Account, Channel, message)
+            $UI.addSystemMessage(Account, Channel, `system`, `SYSTEM`, message)
+
+        })
+
+        Account.twitch.on(`cheer`, (channel, userstate, message) => {
+
+            let Channel = Account.findChannel(channel)
+            message = `${userstate[`display-name`]} is cheering ${userstate[`bits`]} ${message ? `</br> ${message}`: ``}`
+            $UI.addSystemMessage(Account, Channel, `cheer`, `CHEER`, message)
+
+        })
+
+        Account.twitch.on(`hosted`, (channel, username, viewers, autohost) => {
+
+            let Channel = Account.findChannel(channel)
+            let message = `${autohost ? `[AUTOHOST] ` : ``}${username} is hosting the channel for ${viewers} viewers`
+            $UI.addSystemMessage(Account, Channel, `hosted`, `HOST`, message)
+
+        })
+
+        Account.twitch.on(`raid`, (channel, raider, viewers, userstate) => {
+
+            let Channel = Account.findChannel(channel)
+            let message = `${raider} is raiding the channel for ${viewers} viewers`
+            $UI.addSystemMessage(Account, Channel, `raid`, `RAID`, message)
+
+        })
+
+        Account.twitch.on(`resub`, (channel, username, month, message, userstate, method) => {
+
+            let Channel = Account.findChannel(channel)
+            message = `${username} has resubscribed to the channel [${month} months] ${message ? `</br> ${message}` : ``}`
+            $UI.addSystemMessage(Account, Channel, `resub`, `RESUBSCRIPTION`, message)
+
+        })
+
+        Account.twitch.on(`subgift`, (channel, username, recipient, method, userstate) => {
+
+            let Channel = Account.findChannel(channel)
+            let message = `${username} is gifting ${userstate[`msg-param-recipient-display-name`]} a subscription`
+            $UI.addSystemMessage(Account, Channel, `subgift`, `SUBGIFT`, message)
+
+        })
+
+        Account.twitch.on(`subscription`, (channel, username, method, message, userstate) => {
+
+            let Channel = Account.findChannel(channel)
+            message = `${username} has subscribed to the channel ${message ? `</br>${message}` : ``}`
+            $UI.addSystemMessage(Account, Channel, `subscription`, `SUBSCRIPTION`, message)
 
         })
 

@@ -263,6 +263,36 @@ module.exports = class Account
     }
 
     /**
+     * This will leave the specified Channel
+     * 
+     * @param {Channel} Channel
+     */
+    leaveChannel(Channel)
+    {
+
+        console.debug(`[ACCOUNT] - leaveChannel - leaving #${Channel.name} from ${this.username}'s Account`)
+
+        // ****************************************************************************************************
+        // STEP 01 - Checking if the Account has joined this Channel
+        // STEP 02 - Leaving the Channel
+        // ****************************************************************************************************
+
+        let inChannel = this.channels.find(function(channel) {
+            return (channel.name.toLowerCase() === Channel.name.toLowerCase())
+        })
+
+        if (inChannel !== undefined) {
+
+            this.twitch.leave(Channel.name)
+            return true
+
+        }
+
+        return false
+
+    }
+
+    /**
      * This will search a Channel by its name among all the currently joined Channels
      *
      * @param {string} name

@@ -1,5 +1,5 @@
 // TrashCHAT
-// VERSION: V3.10
+// VERSION: V3.14
 // AUTHOR: TiCubius
 
 const { app, BrowserWindow } = require("electron")
@@ -18,8 +18,8 @@ app.once("ready", () => {
 		height: 720,
 		// set the title bar style
 		titleBarStyle: "hidden-inset",
-		// set the background color to black
-		backgroundColor: "#2c3e50",
+		// set the background color to white
+		backgroundColor: "#FFF",
 		// Don't show the window until it's ready, this prevents any white flickering
 		show: false
 	})
