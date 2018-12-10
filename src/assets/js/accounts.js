@@ -41,6 +41,7 @@ AccountsManager.accounts.forEach((Account) => {
     // ****************************************************************************************************
 
     let account = document.createElement('div')
+    account.id = `${Account.username}`
     account.className = `account`
     account.innerHTML = `<h2>${Account.username}</h2>`
 
@@ -72,6 +73,7 @@ AccountsManager.accounts.forEach((Account) => {
         // ****************************************************************************************************
 
         document.querySelector(`#modal-account-delete-content`).innerHTML = `This action will delete the Account ${Account.username}`
+        document.querySelector(`#btnDeleteAccount`).innerHTML = `Delete ${Account.username}`
         document.querySelector(`#selectedAccount`).value = Account.username
 
         $UI.toggleModal(`modal-account-delete`)
@@ -97,6 +99,8 @@ document.querySelector(`#btnDeleteAccount`).addEventListener(`click`, (e) => {
     AccountsManager.saveAccounts()
 
     $UI.toggleModal(`modal-account-delete`)
+
+    document.querySelector(`#${username}`).remove()
 
 })
 
